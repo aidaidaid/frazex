@@ -6,28 +6,26 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Pagination from '@mui/material/Pagination';
 import TablePagination from '@mui/material/TablePagination';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import './App.css';
 // import EditForm from "./components/EditForm";
 // import ModalWindow from "./components/EditForm";
 
 function App() {
 
-  const [search, setSearch] = useState("");
-  const [searchInput, setSearchInput] = useState('');
-  const [searchOutput, setSearchOutput] = useState([]);
+  // const [searchOutput, setSearchOutput] = useState([]);
 
   // useEffect(()=>{
-  //   debugger
   //     setSearchOutput([]);
   //     items?.filter(val=>{
   //       if(searchInput && val.name.toLowerCase().includes(searchInput.toLowerCase()))
-  //         setSearchOutput(searchOutput=>[...searchOutput, val])
+  //         setItems(searchOutput=>[...searchOutput, val])
   //     })
   // }, [searchInput, items])
 
   const [items, setItems] = useState(null);
+  const [searchInput, setSearchInput] = useState('');
   const [order, setOrder] = useState("aplhabet");
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -186,50 +184,6 @@ function App() {
       setItems(sorted);
     }
 
-    // const cancelSearch = () => {
-    //   setSearch("");
-    //   requestSearch(search);
-    // };
-  // const initialValue = { name: "", surname: "", gender: "", balance: "", hasCArds: false, date: "" }
-  // const [formData, setFormData] = useState(initialValue)
-  // const handleClose = () => {
-  //   setOpen(false);
-  //   setFormData(initialValue)
-  // };
-  // const onChange = (e) => {
-  //   const { value, id } = e.target
-  //   // console.log(value,id)
-  //   setFormData({ ...formData, [id]: value })
-  // }
-  // const handleFormSubmit = () => {
-  //   if (formData.id) {
-  //     //updating a user 
-  //     const confirm = window.confirm("Are you sure, you want to update this row ?")
-  //     confirm && fetch("http://localhost:3001/items" + `/${formData.id}`, {
-  //       method: "PUT", body: JSON.stringify(formData), headers: {
-  //         'content-type': "application/json"
-  //       }
-  //     }).then(resp => resp.json())
-  //       .then(resp => {
-  //         handleClose()
-  //         // getUsers()
-
-  //       })
-  //   } else {
-  //     // adding new user
-  //     fetch("http://localhost:3001/items", {
-  //       method: "POST", body: JSON.stringify(formData), headers: {
-  //         'content-type': "application/json"
-  //       }
-  //     }).then(resp => resp.json())
-  //       .then(resp => {
-  //         handleClose()
-  //         // getUsers()
-  //       })
-  //   }
-  // }
-
-  
   useEffect(() => {
     getList();
   }, [name, surname, balance, gender, wasDeleted, page])
@@ -241,17 +195,9 @@ function App() {
         <TextField
           id="search-bar"
           className="text"
-          // onInput={(e) => {
-          //   setSearch(e.target.value);
-          // }}
           variant="outlined"
           placeholder="Search..."
           onChange={e=>setSearchInput(e.target.value)} 
-        // onChange={filterData}
-
-        // value={search}
-        // onChange={(searchVal) => requestSearch(searchVal)}
-        // onCancelSearch={() => cancelSearch()}
         />
         <Button 
           sx={{width: 150}}
@@ -402,25 +348,28 @@ function App() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {items && items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => ( // пагинация
-                /* {searchInput==='' ? items.map((item) => { */
-                  // return (
-                  // <RowsComponent data={value.length > 0 ? tableFilter : dataSource}/>
+                {items && items.filter(item => {
+                    if (searchInput === '') {
+                      return item;
+                    } else if (item.name.toLowerCase().includes(searchInput.toLowerCase())) {
+                      return item;
+                    }
+                  }).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => ( // пагинация
                   <TableRow key={item.id}
                   tabIndex={-1}>
-                    <TableCell align="right">{item.id}</TableCell>
+                    <TableCell>{item.id}</TableCell>
                     <TableCell component="th" scope="row">{item.name}</TableCell>
-                    <TableCell align="right">{item.surname}</TableCell>
-                    <TableCell align="right">{item.gender}</TableCell>
-                    <TableCell align="right">{item.balance}</TableCell>
-                    <TableCell align="right">
+                    <TableCell>{item.surname}</TableCell>
+                    <TableCell>{item.gender}</TableCell>
+                    <TableCell>{item.balance}</TableCell>
+                    <TableCell>
                       <Checkbox
                       disabled
                       color = "success"
                       checked={item.hasCard}
                       />
                       </TableCell>
-                    <TableCell align="right">{item.date}</TableCell>
+                    <TableCell>{item.date}</TableCell>
                     <TableCell><IconButton
                       color="primary"
                       icon={<EditIcon />}
@@ -454,7 +403,7 @@ function App() {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination //ломает CRUD операции
+          <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
             count={items?.length}
