@@ -50,7 +50,7 @@ function App() {
     setPage(0);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - items.length) : 0;
+  // const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - items.length) : 0;
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -80,7 +80,7 @@ function App() {
     }).catch((err) => {
         console.log(err.message)
     })
-    setWasDeleted();
+    setWasDeleted(prev=>!prev);
     getList();
     checkOrder();
   }
@@ -110,7 +110,6 @@ function App() {
     localStorage.removeItem('id');
     handleClose();
     checkOrder();
-    // window.location.reload();
   }
 
 
@@ -407,7 +406,8 @@ function App() {
                 /* {searchInput==='' ? items.map((item) => { */
                   // return (
                   // <RowsComponent data={value.length > 0 ? tableFilter : dataSource}/>
-                  <TableRow key={item.id}>
+                  <TableRow key={item.id}
+                  tabIndex={-1}>
                     <TableCell align="right">{item.id}</TableCell>
                     <TableCell component="th" scope="row">{item.name}</TableCell>
                     <TableCell align="right">{item.surname}</TableCell>
@@ -440,15 +440,17 @@ function App() {
                     </TableCell>
                   </TableRow>
                 ))}
-              {emptyRows > 0 && ( //?
+              {/* {emptyRows > 0 && (Array.from(Array(emptyRows).map(()=>{ return(
+                for (let i = 1; i <= emptyRows; i++) {
                 <TableRow
-                  style={{
-                    height: 53*emptyRows,
-                  }}
+                  // style={{
+                  //   height: 53*emptyRows,
+                  // }}
                 >
                   <TableCell colSpan={9} />
                 </TableRow>
-              )}
+                })}
+              )))} */}
               </TableBody>
             </Table>
           </TableContainer>
