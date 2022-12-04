@@ -335,7 +335,11 @@ function App() {
       <TableContainer>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
               <TableHead sx={{backgroundColor:'#6D1DFD', color: 'white'}}>
-                <TableRow>
+                <TableRow sx={{"& th": {
+                    fontSize: "20px",
+                    color: "#fff"
+                  }
+                }}>
                   <TableCell>Id</TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>Surname</TableCell>
@@ -351,12 +355,11 @@ function App() {
                 {items && items.filter(item => {
                     if (searchInput === '') {
                       return item;
-                    } else if (item.name.toLowerCase().includes(searchInput.toLowerCase())) {
+                    } else if (item.name.toLowerCase().includes(searchInput.toLowerCase()) || item.surname.toLowerCase().includes(searchInput.toLowerCase())) {
                       return item;
                     }
                   }).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => ( // пагинация
-                  <TableRow key={item.id}
-                  tabIndex={-1}>
+                  <TableRow key={item.id} tabIndex={-1}>
                     <TableCell>{item.id}</TableCell>
                     <TableCell component="th" scope="row">{item.name}</TableCell>
                     <TableCell>{item.surname}</TableCell>
