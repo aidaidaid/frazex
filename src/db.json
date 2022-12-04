@@ -10,19 +10,10 @@
       "id": 39
     },
     {
-      "name": "Timur",
-      "surname": "Huseynov",
-      "gender": "male",
-      "balance": "107",
-      "hasCard": true,
-      "date": "03.11.2021",
-      "id": 78
-    },
-    {
       "name": "Samira",
       "surname": "Vəliyeva",
       "gender": "female",
-      "balance": 0,
+      "balance": "5",
       "hasCard": false,
       "date": "04.12.2020",
       "id": 79
@@ -31,8 +22,8 @@
       "name": "Ləman",
       "surname": "Muradova",
       "gender": "female",
-      "balance": "4",
-      "hasCard": false,
+      "balance": "9",
+      "hasCard": true,
       "date": "04.12.2012",
       "id": 80
     },
@@ -46,29 +37,29 @@
       "id": 82
     },
     {
-      "name": "Şahin",
-      "surname": "Abdullayev",
+      "name": "Timur",
+      "surname": "Rustamov",
       "gender": "male",
-      "balance": "100",
+      "balance": "78",
       "hasCard": true,
-      "date": "04.12.2022",
+      "date": "05.12.2022",
       "id": 83
     },
     {
-      "name": "Elmin",
-      "surname": "Nasirov",
+      "name": "Oksana",
+      "surname": "Samedova",
       "gender": "female",
-      "balance": "155",
-      "hasCard": true,
+      "balance": 0,
+      "hasCard": false,
       "date": "05.12.2022",
       "id": 84
     },
     {
-      "name": "Fidan",
-      "surname": "Abbasova",
+      "name": "Nizami",
+      "surname": "Qafarov",
       "gender": "male",
-      "balance": 0,
-      "hasCard": false,
+      "balance": "1000",
+      "hasCard": true,
       "date": "05.12.2022",
       "id": 85
     }

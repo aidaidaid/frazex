@@ -10,23 +10,12 @@ import TablePagination from '@mui/material/TablePagination';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import './App.css';
 // import EditForm from "./components/EditForm";
-// import ModalWindow from "./components/EditForm";
+import ModalWindow from "./components/modal";
 
 function App() {
-
-  // const [searchOutput, setSearchOutput] = useState([]);
-
-  // useEffect(()=>{
-  //     setSearchOutput([]);
-  //     items?.filter(val=>{
-  //       if(searchInput && val.name.toLowerCase().includes(searchInput.toLowerCase()))
-  //         setItems(searchOutput=>[...searchOutput, val])
-  //     })
-  // }, [searchInput, items])
-
   const [items, setItems] = useState(null);
   const [searchInput, setSearchInput] = useState('');
-  const textRef = useRef();
+  // const textRef = useRef();
   const [order, setOrder] = useState("aplhabet");
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -66,7 +55,7 @@ function App() {
     fetch("http://localhost:3001/items").then((res) => {
         return res.json();
     }).then((resp) => {
-        setItems(resp.sort((a, b) => a.name.localeCompare(b.name) || a.surname.localeCompare(b.surname)));
+        setItems(resp).sort((a, b) => a.name.localeCompare(b.name) || a.surname.localeCompare(b.surname))
     }).catch((err) => {
         console.log(err.message);
     })
@@ -83,7 +72,7 @@ function App() {
     getList();
     checkOrder();
   }
-  /////////////////////////EDIT CARD///////////////////
+
   const handleEdit = (item) => {
     setEdit(true);
     setId(item.id);
@@ -111,8 +100,6 @@ function App() {
     checkOrder();
   }
 
-
-  /////////////////////////ADD CARD///////////////////
   const handleAdd = (e) => {
     setEdit(false);
     handleOpen();
@@ -128,8 +115,6 @@ function App() {
       method:"POST",
       headers:{"content-type":"application/json"},
       body:JSON.stringify(newData)
-    }).then((res)=>{
-      //?
     }).catch((err)=>{
       console.log(err.message)
     })
@@ -213,8 +198,9 @@ function App() {
           label="Sort"
           id="outlined-select-currency"
           onChange={handleChangeOrder}
-          defaultValue={order}
-          inputRef={textRef}
+          // defaultValue={"aplhabet"}
+          value={order}
+          // inputRef={textRef}
           >
           <MenuItem value="aplhabet">
               {"aplhabetical order"}
@@ -223,10 +209,9 @@ function App() {
               {"date"}
           </MenuItem>
         </TextField>
-          <Modal
-                open={open}
-                onClose={handleClose}
-            >
+        {/* <ModalWindow open={open} handleClose={handleClose} saveAdd={saveAdd} saveEdit={saveEdit} getList={getList} checkOrder={checkOrder}
+        edit={edit} name={name} surname={surname} gender={gender} balance={balance} hasCard={hasCard}/> */}
+          <Modal open={open} onClose={handleClose}>
             <Box sx={boxStyle}>
                 <Stack spacing={3}>
                 <TextField
