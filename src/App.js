@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { Checkbox, FormControlLabel, MenuItem, Stack, TextField } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
@@ -26,6 +26,7 @@ function App() {
 
   const [items, setItems] = useState(null);
   const [searchInput, setSearchInput] = useState('');
+  const textRef = useRef();
   const [order, setOrder] = useState("aplhabet");
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -213,6 +214,7 @@ function App() {
           id="outlined-select-currency"
           onChange={handleChangeOrder}
           defaultValue={order}
+          inputRef={textRef}
           >
           <MenuItem value="aplhabet">
               {"aplhabetical order"}
@@ -221,8 +223,7 @@ function App() {
               {"date"}
           </MenuItem>
         </TextField>
-      {edit ? 
-          <Modal //edit
+          <Modal
                 open={open}
                 onClose={handleClose}
             >
@@ -272,66 +273,11 @@ function App() {
                     </MenuItem>
                 </TextField>
                 <Button disabled={false} 
-                onClick={saveEdit} 
-                variant="contained">EDIT</Button>
+                onClick={edit ? saveEdit : saveAdd} 
+                variant="contained">{edit ? "EDIT" : "ADD"}</Button>
             </Stack>
             </Box>
-          </Modal>  
-          :
-          <Modal //add
-              open={open}
-              onClose={handleClose}
-          >
-            <Box sx={boxStyle}>
-                <Stack spacing={3}>
-                <TextField
-                    label="Name"
-                    value={name}
-                    id="outlined-required"
-                    onChange={handleChangeName}
-                />
-                <TextField
-                    label="Surname"
-                    value={surname}
-                    id="outlined-required"
-                    onChange={handleChangeSurname}
-                />
-                <TextField
-                    label="Balance"
-                    value={balance}
-                    type="number"
-                    id="outlined-required"
-                    autocomplete="off"
-                    onChange={handleChangeBalance}
-                />
-                <FormControlLabel
-                    label="Has card"
-                    control={
-                    <Checkbox
-                        checked={hasCard}
-                        onChange={()=>setHasCard(!hasCard)}
-                    />
-                    }
-                />
-                <TextField
-                    select
-                    label="Select gender"
-                    id="outlined-select-currency"
-                    onChange={handleChangeGender}
-                    defaultValue={gender}
-                    >
-                    <MenuItem value="male">
-                        {"male"}
-                    </MenuItem>
-                        <MenuItem value="female">
-                        {"female"}
-                    </MenuItem>
-                </TextField>
-                <Button disabled={false} onClick={saveAdd} variant="contained">ADD</Button>
-            </Stack>
-            </Box>
-          </Modal>  
-        }
+          </Modal>      
       <TableContainer>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
               <TableHead sx={{backgroundColor:'#6D1DFD', color: 'white'}}>

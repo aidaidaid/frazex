@@ -31,19 +31,10 @@
       "name": "Ləman",
       "surname": "Muradova",
       "gender": "female",
-      "balance": 0,
+      "balance": "4",
       "hasCard": false,
       "date": "04.12.2012",
       "id": 80
-    },
-    {
-      "name": "ккккк",
-      "surname": "",
-      "gender": "male",
-      "balance": 0,
-      "hasCard": false,
-      "date": "04.12.2022",
-      "id": 81
     },
     {
       "name": "Samir ",
@@ -62,6 +53,24 @@
       "hasCard": true,
       "date": "04.12.2022",
       "id": 83
+    },
+    {
+      "name": "Elmin",
+      "surname": "Nasirov",
+      "gender": "female",
+      "balance": "155",
+      "hasCard": true,
+      "date": "05.12.2022",
+      "id": 84
+    },
+    {
+      "name": "Fidan",
+      "surname": "Abbasova",
+      "gender": "male",
+      "balance": 0,
+      "hasCard": false,
+      "date": "05.12.2022",
+      "id": 85
     }
   ]
 }
