@@ -4,8 +4,8 @@
       "name": "Ayxan",
       "surname": "Ayxanov",
       "gender": "male",
-      "balance": "23",
-      "hasCard": false,
+      "balance": "85",
+      "hasCard": true,
       "date": "04.12.2017",
       "id": 39
     },
@@ -22,7 +22,7 @@
       "name": "Ləman",
       "surname": "Muradova",
       "gender": "female",
-      "balance": "13",
+      "balance": "21",
       "hasCard": true,
       "date": "04.12.2012",
       "id": 80
@@ -40,8 +40,8 @@
       "name": "Timur",
       "surname": "Rustamov",
       "gender": "male",
-      "balance": "80",
-      "hasCard": true,
+      "balance": "86",
+      "hasCard": false,
       "date": "05.12.2022",
       "id": 83
     },
@@ -58,28 +58,55 @@
       "name": "Nizami",
       "surname": "Qafarov",
       "gender": "male",
-      "balance": "1000",
+      "balance": "1008",
       "hasCard": true,
       "date": "05.12.2022",
       "id": 85
     },
     {
-      "name": "Sam",
-      "surname": "",
-      "gender": "male",
-      "balance": "7",
-      "hasCard": false,
-      "date": "05.12.2022",
-      "id": 87
-    },
-    {
       "name": "Tural",
-      "surname": "",
+      "surname": "Eyvazov",
       "gender": "male",
-      "balance": "3",
+      "balance": "3045",
       "hasCard": true,
       "date": "05.12.2022",
       "id": 88
+    },
+    {
+      "name": "Orxan",
+      "surname": "Axundov",
+      "gender": "male",
+      "balance": "564",
+      "hasCard": true,
+      "date": "05.12.2022",
+      "id": 89
+    },
+    {
+      "name": "Aysel",
+      "surname": "Hümbətova",
+      "gender": "female",
+      "balance": "1524",
+      "hasCard": true,
+      "date": "05.12.2022",
+      "id": 90
+    },
+    {
+      "name": "Vidadi",
+      "surname": "Əliyev",
+      "gender": "male",
+      "balance": "15",
+      "hasCard": false,
+      "date": "05.12.2022",
+      "id": 91
+    },
+    {
+      "name": "Nərgiz",
+      "surname": "Kuliyeva",
+      "gender": "female",
+      "balance": "2100",
+      "hasCard": true,
+      "date": "05.12.2022",
+      "id": 92
     }
   ]
 }
