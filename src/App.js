@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import TablePagination from '@mui/material/TablePagination';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import './App.css';
 // import EditForm from "./components/EditForm";
 import ModalWindow from "./components/modal";
@@ -16,7 +15,7 @@ function App() {
   const [items, setItems] = useState(null);
   const [searchInput, setSearchInput] = useState('');
   // const textRef = useRef();
-  const [order, setOrder] = useState("aplhabet");
+  const [order, setOrder] = useState("alphabet");
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [wasDeleted, setWasDeleted] = useState(false);
@@ -27,7 +26,7 @@ function App() {
   const [balance, setBalance] = useState(0);
   const [hasCard, setHasCard] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -55,7 +54,7 @@ function App() {
     fetch("http://localhost:3001/items").then((res) => {
         return res.json();
     }).then((resp) => {
-        setItems(resp).sort((a, b) => a.name.localeCompare(b.name) || a.surname.localeCompare(b.surname))
+        setItems(resp.sort((a, b) => a.name.localeCompare(b.name) || a.surname.localeCompare(b.surname)));
     }).catch((err) => {
         console.log(err.message);
     })
@@ -85,94 +84,95 @@ function App() {
     localStorage.setItem('id', item.id);
   }
 
-  const saveEdit = () => {
-    const id = localStorage.getItem('id');
-    const newData = {name, surname, gender, balance, hasCard}; //date
-    fetch("http://localhost:3001/items/"+id, {
-      method:"PATCH",
-      headers:{"content-type":"application/json"},
-      body: JSON.stringify(newData)
-    }).catch((err) => {
-      console.log(err.message);
-    })
-    localStorage.removeItem('id');
-    handleClose();
-    checkOrder();
-  }
+  // const saveEdit = () => {
+  //   const id = localStorage.getItem('id');
+  //   const newData = {name, surname, gender, balance, hasCard}; //date
+  //   fetch("http://localhost:3001/items/"+id, {
+  //     method:"PATCH",
+  //     headers:{"content-type":"application/json"},
+  //     body: JSON.stringify(newData)
+  //   }).catch((err) => {
+  //     console.log(err.message);
+  //   })
+  //   localStorage.removeItem('id');
+  //   handleClose();
+  //   checkOrder();
+  // }
 
   const handleAdd = (e) => {
     setEdit(false);
     handleOpen();
   }
 
-  const saveAdd=()=>{
-    const day = String(new Date().getDate()).padStart(2, '0');
-    const month = String(new Date().getMonth() + 1).padStart(2, '0');
-    const year = new Date().getFullYear();
-    const date = day + '.' + month + '.' + year;
-    const newData = {name, surname, gender, balance, hasCard, date};
-    fetch("http://localhost:3001/items", {
-      method:"POST",
-      headers:{"content-type":"application/json"},
-      body:JSON.stringify(newData)
-    }).catch((err)=>{
-      console.log(err.message)
-    })
-    handleClose();
-    checkOrder();
+  // const saveAdd=()=>{
+  //   const day = String(new Date().getDate()).padStart(2, '0');
+  //   const month = String(new Date().getMonth() + 1).padStart(2, '0');
+  //   const year = new Date().getFullYear();
+  //   const date = day + '.' + month + '.' + year;
+  //   const newData = {name, surname, gender, balance, hasCard, date};
+  //   fetch("http://localhost:3001/items", {
+  //     method:"POST",
+  //     headers:{"content-type":"application/json"},
+  //     body:JSON.stringify(newData)
+  //   }).catch((err)=>{
+  //     console.log(err.message)
+  //   })
+  //   handleClose();
+  //   checkOrder();
+  // }
+
+  const handleChangeName = (event) => {
+      setName(event.target.value);
+  };
+
+  const handleChangeSurname = (event) => {
+      setSurname(event.target.value);
   }
 
-    const handleChangeName = (event) => {
-        setName(event.target.value);
-    };
+  const handleChangeGender = (event) => {
+    setGender(event.target.value);
+  }
 
-    const handleChangeSurname = (event) => {
-        setSurname(event.target.value);
-    }
+  const handleChangeBalance = (event) => {
+      setBalance(event.target.value);
+  }
 
-    const handleChangeGender = (event) => {
-      setGender(event.target.value);
-    }
+  const handleCardChange = (event) => {
+    //   setHasCard(prev=>!prev);
+  }
 
-    const handleChangeBalance = (event) => {
-        setBalance(event.target.value);
-    }
+  const handleChangeOrder = (event) => {
+    debugger
+    setOrder(event?.target.value);
+    checkOrder(event?.target.value);
+  }
 
-    const handleCardChange = (event) => {
-      //   setHasCard(prev=>!prev);
-    }
+  const checkOrder  = (e) => {
+    debugger
+    const currentOrder = e || order;
+    (currentOrder === 'alphabet') ? sortByAlphabet() : sortByDate();
+    // setOrder(currentOrder);
+  }
 
-    const handleChangeOrder = (event) => {
-      debugger
-      setOrder(event?.target.value);
-      checkOrder(event?.target.value);
-    }
+  const sortByAlphabet = () => {
+    const sorted = [...items].sort((a, b) => a.name.localeCompare(b.name) || a.surname.localeCompare(b.surname));
+    setItems(sorted);
+  }
 
-    const checkOrder  = (e) => {
-      const currentOrder = e || order;
-      (currentOrder === 'aplhabet') ? sortByAlphabet() : sortByDate();
-      // setOrder(currentOrder);
-    }
-
-    const sortByAlphabet = () => {
-      const sorted = [...items].sort((a, b) => a.name.localeCompare(b.name) || a.surname.localeCompare(b.surname));
-      setItems(sorted);
-    }
-
-    const sortByDate = () => {
-      const sorted = [...items].sort(function(a, b){
-        const aa = a.date.split('.').reverse().join();
-        const bb = b.date.split('.').reverse().join();
-        return aa > bb ? -1 : (aa < bb ? 1 : 0);
-      });
-      // const sorted = [...items].sort((a, b) => new Date(b.date) - new Date(a.date));
-      debugger
-      setItems(sorted);
-    }
+  const sortByDate = () => {
+    const sorted = [...items].sort(function(a, b){
+      const aa = a.date.split('.').reverse().join();
+      const bb = b.date.split('.').reverse().join();
+      return aa > bb ? -1 : (aa < bb ? 1 : 0);
+    });
+    // const sorted = [...items].sort((a, b) => new Date(b.date) - new Date(a.date));
+    debugger
+    setItems(sorted);
+  }
 
   useEffect(() => {
     getList();
-  }, [name, surname, balance, gender, wasDeleted, page])
+  }, [name, surname, balance, gender, wasDeleted, order, page])
 
   return (
     <>
@@ -198,20 +198,24 @@ function App() {
           label="Sort"
           id="outlined-select-currency"
           onChange={handleChangeOrder}
-          // defaultValue={"aplhabet"}
-          value={order}
+          defaultValue={order}
+          // value={order}
           // inputRef={textRef}
           >
-          <MenuItem value="aplhabet">
-              {"aplhabetical order"}
+          <MenuItem value="alphabet">
+              {"alphabetical order"}
           </MenuItem>
               <MenuItem value="date">
               {"date"}
           </MenuItem>
         </TextField>
-        {/* <ModalWindow open={open} handleClose={handleClose} saveAdd={saveAdd} saveEdit={saveEdit} getList={getList} checkOrder={checkOrder}
-        edit={edit} name={name} surname={surname} gender={gender} balance={balance} hasCard={hasCard}/> */}
-          <Modal open={open} onClose={handleClose}>
+      <Modal open={open} onClose={handleClose}>
+        <ModalWindow open={open} handleClose={handleClose} 
+        // saveAdd={saveAdd} saveEdit={saveEdit} 
+        getList={getList} checkOrder={checkOrder}
+        edit={edit} oldName={name} oldSurname={surname} oldGender={gender} oldBalance={balance} oldHasCard={hasCard}/>
+      </Modal>
+          {/* <Modal open={open} onClose={handleClose}>
             <Box sx={boxStyle}>
                 <Stack spacing={3}>
                 <TextField
@@ -262,7 +266,7 @@ function App() {
                 variant="contained">{edit ? "EDIT" : "ADD"}</Button>
             </Stack>
             </Box>
-          </Modal>      
+          </Modal>       */}
       <TableContainer>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
               <TableHead sx={{backgroundColor:'#6D1DFD', color: 'white'}}>
@@ -289,7 +293,7 @@ function App() {
                     } else if (item.name.toLowerCase().includes(searchInput.toLowerCase()) || item.surname.toLowerCase().includes(searchInput.toLowerCase())) {
                       return item;
                     }
-                  }).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => ( // пагинация
+                  }).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
                   <TableRow key={item.id} tabIndex={-1}>
                     <TableCell>{item.id}</TableCell>
                     <TableCell component="th" scope="row">{item.name}</TableCell>

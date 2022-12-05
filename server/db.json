@@ -4,7 +4,7 @@
       "name": "Ayxan",
       "surname": "Ayxanov",
       "gender": "male",
-      "balance": 20,
+      "balance": "23",
       "hasCard": false,
       "date": "04.12.2017",
       "id": 39
@@ -22,7 +22,7 @@
       "name": "Ləman",
       "surname": "Muradova",
       "gender": "female",
-      "balance": "9",
+      "balance": "13",
       "hasCard": true,
       "date": "04.12.2012",
       "id": 80
@@ -40,7 +40,7 @@
       "name": "Timur",
       "surname": "Rustamov",
       "gender": "male",
-      "balance": "78",
+      "balance": "80",
       "hasCard": true,
       "date": "05.12.2022",
       "id": 83
@@ -62,6 +62,24 @@
       "hasCard": true,
       "date": "05.12.2022",
       "id": 85
+    },
+    {
+      "name": "Sam",
+      "surname": "",
+      "gender": "male",
+      "balance": "7",
+      "hasCard": false,
+      "date": "05.12.2022",
+      "id": 87
+    },
+    {
+      "name": "Tural",
+      "surname": "",
+      "gender": "male",
+      "balance": "3",
+      "hasCard": true,
+      "date": "05.12.2022",
+      "id": 88
     }
   ]
 }
